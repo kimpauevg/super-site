@@ -14,7 +14,6 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-
 use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 
@@ -271,6 +270,7 @@ class SiteController extends Controller
 
         if (Yii::$app->request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->typeofupload = 1;
             if ($model->upload()) {
                 // file is uploaded successfully
                 return;
