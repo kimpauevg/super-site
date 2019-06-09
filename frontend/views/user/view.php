@@ -17,22 +17,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <!--?php= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+              'confirm' => 'Are you sure you want to delete this item?',
+             'method' => 'post',
             ],
-        ]) ?>
+        ]) */-->
     </p>
+    <?php $created_at = date('d.m.Y',$model->created_at);
+        $model->created_at = $created_at;
+        $model->phone = "+7". $model->phone;?>
 
     <?= DetailView::widget([
+
         'model' => $model,
         'attributes' => [
             'name',
             'email:email',
 
-            'created_at',
+            'created_at'  ,
 
 
             'o_sebe',

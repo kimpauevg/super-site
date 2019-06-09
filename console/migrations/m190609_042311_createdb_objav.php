@@ -10,6 +10,20 @@ class m190609_042311_createdb_objav extends Migration
     /**
      * {@inheritdoc}
      */
+    public function up()
+    {
+        $this->createTable("{{%objav}}", [
+            'id'=>$this->primaryKey(),
+            'headline'=>$this->string()->notNull(),
+            'description'=>$this->string()->notNull(),
+            'price'=>$this->integer()->notNull(),
+            'category'=>$this->string()->notNull(),
+            'town'=>$this->string()->notNull(),
+            'created_at'=>$this->string(),
+            'owner_id'=>$this->integer()->notNull()
+            ]);
+    }
+
     public function safeUp()
     {
 
