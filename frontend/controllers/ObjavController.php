@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace frontend\controllers;
 
 use Yii;
 use app\models\Objav;
@@ -66,11 +66,18 @@ class ObjavController extends Controller
     {
         $model = new Objav();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->created_at = date('d.m.Y H.i.s', time());//i added that
+            $model->owner_id = Yii::$app->user->id;
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
+
         return $this->render('create', [
+
             'model' => $model,
         ]);
     }
@@ -84,6 +91,7 @@ class ObjavController extends Controller
      */
     public function actionUpdate($id)
     {
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

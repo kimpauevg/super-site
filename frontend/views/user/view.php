@@ -33,14 +33,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
         'model' => $model,
         'attributes' => [
-            'name',
+            [   'label' => 'Имя',
+                'attribute' => 'name'
+            ],
+
             'email:email',
+            [   'label' => 'Дата регистрации',
+                'attribute' => 'created_at'
+            ],
 
-            'created_at'  ,
 
-
-            'o_sebe',
-            'phone',
+            [   'label' => 'О себе',
+                'attribute' => 'o_sebe'
+            ],
+            [   'label' => 'Телефон',
+                'attribute' => 'phone'
+            ],
 
         ],
     ]) ?>
