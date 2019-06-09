@@ -15,6 +15,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+use frontend\models\UploadForm;
+use yii\web\UploadedFile;
+
 /**
  * Site controller
  */
@@ -258,4 +261,23 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+    /*
+     * Inserted by paul
+     * uploads image
+     */
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
+
 }
