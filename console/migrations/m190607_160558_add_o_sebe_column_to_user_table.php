@@ -16,7 +16,7 @@ class m190607_160558_add_o_sebe_column_to_user_table extends Migration
      * {@inheritdoc}
      */
     public function safeUp()
-    {
+    {git
     }
 
     /**
