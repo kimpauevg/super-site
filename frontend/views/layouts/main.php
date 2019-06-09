@@ -44,6 +44,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $id = Yii::$app->user->getId();
+        $str = str_replace("this_user_id",$id, "?r=/user/update&id=this_user_id");
+
+        $menuItems[] = ['label'=>'Личный кабинет','url' => $str];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
