@@ -26,6 +26,9 @@ use yii\widgets\ActiveForm;
 
     <!--?= $form->field($model, 'owner_id')->textInput() ?-->
 
+    <?= $form->field($model, 'upload')->fileInput() ?>
+
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

@@ -11,6 +11,7 @@ use app\models\User;
  */
 class UserSearch extends User
 {
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token', 'o_sebe', 'phone', 'name'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token', 'o_sebe', 'phone', 'name', 'hometown', 'avatars'], 'safe'],
         ];
     }
 
@@ -72,7 +73,9 @@ class UserSearch extends User
             ->andFilterWhere(['ilike', 'verification_token', $this->verification_token])
             ->andFilterWhere(['ilike', 'o_sebe', $this->o_sebe])
             ->andFilterWhere(['ilike', 'phone', $this->phone])
-            ->andFilterWhere(['ilike', 'name', $this->name]);
+            ->andFilterWhere(['ilike', 'name', $this->name])
+            ->andFilterWhere(['ilike', 'hometown', $this->hometown])
+            ->andFilterWhere(['ilike', 'avatars', $this->avatar]);
 
         return $dataProvider;
     }

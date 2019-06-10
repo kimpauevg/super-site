@@ -15,19 +15,19 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?php // $form->field($model, 'id') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?php // $form->field($model, 'username') ?>
+    <?= $form->field($model, 'username') ?>
 
-    <?php // $form->field($model, 'auth_key') ?>
+    <?= $form->field($model, 'auth_key') ?>
 
-    <?php // $form->field($model, 'password_hash') ?>
+    <?= $form->field($model, 'password_hash') ?>
 
-    <?php // $form->field($model, 'password_reset_token') ?>
+    <?= $form->field($model, 'password_reset_token') ?>
 
-    <?=  $form->field($model, 'email') ?>
+    <?php // echo $form->field($model, 'email') ?>
 
-    <?php  echo $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
@@ -40,6 +40,10 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'phone') ?>
 
     <?php // echo $form->field($model, 'name') ?>
+
+    <?php // echo $form->field($model, 'hometown') ?>
+
+    <?php // echo $form->field($model, 'avatar') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

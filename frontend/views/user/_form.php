@@ -12,23 +12,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?php //$form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?php //$form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
-
-    <?php //$form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
-
-    <?php // = $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
-
-    <?php //= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?php //= $form->field($model, 'status')->textInput() ?>
-
-    <?php //= $form->field($model, 'created_at')->textInput() ?>
-
-    <?php //$form->field($model, 'updated_at')->textInput() ?>
-
-    <?php //= $form->field($model, 'verification_token')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'o_sebe')->textInput(['maxlength' => true]) ?>
 
@@ -36,20 +21,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'hometown')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'upload')->fileInput() ?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
+
+
 
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
-<?php $model1= new \frontend\models\UploadForm?>
-
-<?= $form->field($model1, 'imageFile')->fileInput() ?>
-
-<button>Submit</button>
-
-<?php ActiveForm::end() ?>

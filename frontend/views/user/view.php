@@ -26,8 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) */-->
     </p>
     <?php $created_at = date('d.m.Y',$model->created_at);
-        $model->created_at = $created_at;
-        $model->phone = "+7". $model->phone;?>
+    $model->created_at = $created_at;
+    $model->phone = "+7". $model->phone;?>
+
+    <p><h1> <?php echo "<img src =". $model->avatar.">" ?></h1></p>
 
     <?= DetailView::widget([
 

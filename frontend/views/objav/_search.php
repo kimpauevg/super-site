@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <!-- $form->field($model, 'id') -->
 
     <?= $form->field($model, 'headline') ?>
 
@@ -25,11 +25,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'category') ?>
 
-    <?php // echo $form->field($model, 'town') ?>
+    <?= $form->field($model, 'town') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'owner_id') ?>
+    <?php // echo $form->field($model, 'photo') ?>
+
+
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

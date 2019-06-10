@@ -28,7 +28,7 @@ class UploadForm extends Model
     {
         if ($this->validate()) {
 
-                $this->imageFile->saveAs('uploads/' .'avatar/'. Yii::$app->user->id . '.' . $this->imageFile->extension);
+                $this->imageFile->saveAs('uploads/' .'avatars/'. Yii::$app->user->id . '.' . $this->imageFile->extension);
                 return true;
 
             }
@@ -50,7 +50,7 @@ class UploadForm extends Model
     }
     public function uploadAvatar()
     {
-            $this->imageFile->saveAs('uploads/' .'avatar/'. Yii::$app->user->id . '.' . $this->imageFile->extension);
+            $this->imageFile->saveAs('uploads/' .'avatars/'. Yii::$app->user->id . '.' . $this->imageFile->extension);
             return true;
     }
     public function uploadObjav()

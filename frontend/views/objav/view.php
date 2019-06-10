@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <p><h1> <?php echo "<img src =". $model->photo.">" ?></h1></p>
     <?php $model->price = $model->price . 'руб'?>
 
 
@@ -57,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $person = User::findOne([$model->owner_id]);
     $person->phone = '+7'.$person->phone;
     $created_at = (string)(date('d.m.Y',$person ->created_at));
-        $person->created_at = $created_at;
+    $person->created_at = $created_at;
     ?>
     <p> Создал объявление:</p>
     <?= DetailView::widget([
-            'model' => $person,
+        'model' => $person,
         'attributes' => [
             [   'label' => 'Имя',
                 'attribute' => 'name'
@@ -83,6 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
 
 
-            ])?>
+    ])?>
 
 </div>

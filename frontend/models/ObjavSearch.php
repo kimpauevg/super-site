@@ -18,7 +18,7 @@ class ObjavSearch extends Objav
     {
         return [
             [['id', 'price', 'owner_id'], 'integer'],
-            [['headline', 'description', 'category', 'town', 'created_at'], 'safe'],
+            [['headline', 'description', 'category', 'town', 'created_at', 'photo'], 'safe'],
         ];
     }
 
@@ -67,8 +67,12 @@ class ObjavSearch extends Objav
             ->andFilterWhere(['ilike', 'description', $this->description])
             ->andFilterWhere(['ilike', 'category', $this->category])
             ->andFilterWhere(['ilike', 'town', $this->town])
-            ->andFilterWhere(['ilike', 'created_at', $this->created_at]);
+            ->andFilterWhere(['ilike', 'created_at', $this->created_at])
+            ->andFilterWhere(['ilike', 'photo', $this->photo]);
 
         return $dataProvider;
+    }
+    public function getStatus(){
+
     }
 }

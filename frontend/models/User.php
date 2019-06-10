@@ -20,9 +20,13 @@ use Yii;
  * @property string $o_sebe
  * @property string $phone
  * @property string $name
+ * @property string $hometown
+ * @property string $avatar
  */
 class User extends \yii\db\ActiveRecord
 {
+    public $upload;
+
     /**
      * {@inheritdoc}
      */
@@ -37,11 +41,18 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','phone'], 'required'],
-
-
-            [['o_sebe', 'name'], 'string', 'max' => 255],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['status', 'created_at', 'updated_at'], 'default', 'value' => null],
+            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email', 'verification_token', 'o_sebe', 'name', 'hometown', 'avatar'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
             [['phone'], 'string', 'max' => 10],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            [['username'], 'unique'],
+            [['upload'], 'image', 'extensions' => ['png','jpg','jpeg'],'message'=>"Неверный формат файла. Выберите фотографию формата jpg, jpeg, png."],
+            [['upload'],'image','maxSize'=>10*1024*1024,'message'=>'Максимальный размер фотографии 10 Мб.'],
+            [['upload'],'image','maxFiles'=>1,'message'=>'Вы можете загрузить не более 1 фотографии'],
 
         ];
     }
@@ -65,6 +76,8 @@ class User extends \yii\db\ActiveRecord
             'o_sebe' => 'O Sebe',
             'phone' => 'Phone',
             'name' => 'Name',
+            'hometown' => 'Hometown',
+            'avatar' => 'Avatar',
         ];
     }
 }

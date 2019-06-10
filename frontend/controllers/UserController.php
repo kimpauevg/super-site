@@ -8,6 +8,7 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -65,6 +66,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $this->uploadAvatar($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -85,11 +87,11 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $this->uploadAvatar($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
 
         return $this->render('update', [
             'model' => $model,
@@ -125,4 +127,24 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    protected function uploadAvatar(User $model)
+    {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->upload = UploadedFile::getInstance($model, 'upload');
+
+            if ($model->validate()) {
+                if ($model->upload) {
+                    $filePath = 'uploads/avatars/' . $model->id . '.' . $model->upload->extension;
+                    if ($model->upload->saveAs($filePath)) {
+                        $model->avatar = $filePath;
+                    }
+                }
+
+                if ($model->save(false)) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
+    }
+
 }
