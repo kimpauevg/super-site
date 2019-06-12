@@ -1,16 +1,16 @@
 <?php
 
 use app\models\Town;
+use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\User;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Objav */
+/* @var $model app\models\Myobjav */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="objav-form">
+<div class="myobjav-form">
 
     <?php $form = ActiveForm::begin();
     $params_cat = [
@@ -18,7 +18,7 @@ use app\models\User;
     ];
     $item = $model->category;
     $items = [
-         'Недвижимость'=>'Недвижимость',
+        'Недвижимость'=>'Недвижимость',
         'Транспорт'=>'Транспорт',
         'Личные вещи'=>'Личные вещи',
         'Хобби и отдых'=>'Хобби и отдых',

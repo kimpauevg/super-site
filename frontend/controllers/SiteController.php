@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use app\models\User;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -92,6 +93,11 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $id = Yii::$app->user->id;
+            if(User::findOne($id)->hometown == null){
+                $this->redirect("?r=/user/update&id=".$id);
+                return true;
+            }
             return $this->goBack();
         } else {
             $model->password = '';
@@ -158,6 +164,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration.');
             return $this->goHome();
+
         }
 
 

@@ -1,50 +1,34 @@
 <?php
 
+use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use app\models\User;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Objav */
+/* @var $model app\models\Myobjav */
 
-$this->title = $model->headline;
-
-$this->params['breadcrumbs'][] = ['label' => 'Objavs', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Myobjavs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-?>
-<?php function isOwner($model)
-{
-    if (Yii::$app->user->id==$model->owner_id){
-        return true;
-    }
-    else {
-        return false;
-    }
+if(Yii::$app->user->id != $model->owner_id){
+    Yii::$app->response->redirect('/objav');
 }
 ?>
-<div class="objav-view">
+<div class="myobjav-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php  $a=Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php $b=Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
-        <?php if (isOwner($model)==true){
-            echo $a;
-            echo $b;
-        }?>
-
     </p>
-    <p><h1> <?php echo "<img src =". $model->photo.">" ?></h1></p>
-    <?php $model->price = $model->price . ' руб'?>
-
 
     <?= DetailView::widget([
         'model' => $model,
@@ -57,10 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'description'
             ],
             [   'label' => 'Цена',
-                'attribute' => 'price',
-                'value' => function($model){
-                    return $model->price . " руб.";
-                },
+                'attribute' => 'price'
             ],
             [   'label' => 'Категория',
                 'attribute' => 'category'

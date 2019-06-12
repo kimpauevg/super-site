@@ -22,12 +22,12 @@ class SignupForm extends Model
     {
         return [
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'required','message'=>'Заполните емэйл'],
+            ['email', 'email','message'=>'Невалидый емэйл'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Емэйл занят.'],
 
-            ['password', 'required'],
+            ['password', 'required','message'=>'Заполните пароль'],
             ['password', 'string', 'min' => 6],
         ];
     }

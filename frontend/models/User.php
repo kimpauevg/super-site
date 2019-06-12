@@ -49,6 +49,7 @@ class User extends \yii\db\ActiveRecord
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email', 'verification_token', 'o_sebe', 'name', 'hometown', 'avatar'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
+            ['phone', 'match', 'pattern' => '/^[0-9]\w*$/i', 'message' => 'Телефон должен состоять из цифр' ],
             [['phone'], 'string','min'=>10 ,'max' => 10,'message'=>'Не валидный телефон'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
