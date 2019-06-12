@@ -66,8 +66,12 @@ class ObjavController extends Controller
     public function actionCreate()
     {
         $model = new Objav();
-        if($model->photo!=null){$this->uploadPhoto($model);}
+        //if($model->photo!=null){$this->uploadPhoto($model);}
+        $model->created_at = date('d.m.Y H.i.s', time());//i added that
+        $model->owner_id = Yii::$app->user->id;
 
+        //if(!$model->save()){
+          //  print_r($model->errors);die;}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -107,9 +111,15 @@ class ObjavController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = false;
 
-        return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('/objav/index_my');
+        }
+
+        return $this->redirect('?r=objav/index_my');
+
     }
 
     /**
@@ -145,5 +155,10 @@ class ObjavController extends Controller
                 }
             }
         }
+    }
+    protected function deletePhoto(Objav $model)
+    {
+        $model->upload = null;
+        return true;
     }
 }

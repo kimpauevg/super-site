@@ -11,8 +11,6 @@ use yii\helpers\Url;
 $this->title = 'Objavs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php $cities = \app\models\Town::find()->all();
-        $items = \yii\helpers\ArrayHelper::getColumn($cities,'name')?>
 <div class="objav-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -28,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             [   'label' => 'Заголовок',
@@ -49,8 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ],
             ],
             [   'label' => 'Город',
-                'attribute'=>'town',
-                'filter'=>$items,
+                'value' => 'town',
+            ],
+            [   'label' => 'Статус',
+                'value' => function($data){
+                    if($data->status==true) return "Активное";
+                    else return "Закрытое";
+                },
             ],
 
             //'created_at',
@@ -66,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             } else return null;}],
 
 
-            ['class' => 'yii\grid\MyActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
 
     ]]); ?>
 

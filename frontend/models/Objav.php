@@ -34,9 +34,13 @@ class Objav extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['headline', 'description', 'price', 'category', 'town', 'owner_id'], 'required'],
+            ['headline',  'required','message'=>'Заполните Заголовок объявления'],
+            [ 'description', 'required','message'=>'Заполните Описание объявления'],
+            [ 'price', 'required','message'=>'Укажите цену'],
+            ['category', 'required','message'=>'Укажите категорию'],
+            [ 'town', 'required','message'=>'Укажите город'],
             [['price', 'owner_id'], 'default', 'value' => null],
-            [['price', 'owner_id'], 'integer'],
+            [['price', 'owner_id'], 'integer','message'=>'Цена должна быть целым числом'],
             [['headline', 'description', 'category', 'town', 'created_at', 'photo'], 'string', 'max' => 255],
             [['upload'], 'image', 'extensions' => ['png','jpg','jpeg'],'message'=>"Неверный формат файла. Выберите фотографию формата jpg, jpeg, png."],
             [['upload'],'image','maxSize'=>10*1024*1024,'message'=>'Максимальный размер фотографии 10 Мб.'],
@@ -51,14 +55,14 @@ class Objav extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'headline' => 'Headline',
-            'description' => 'Description',
-            'price' => 'Price',
-            'category' => 'Category',
-            'town' => 'Town',
-            'created_at' => 'Created At',
+            'headline' => 'Заголовок',
+            'description' => 'Описание',
+            'price' => 'Цена',
+            'category' => 'Категория',
+            'town' => 'Город',
+            'created_at' => 'Дата и время размещения',
             'owner_id' => 'Owner ID',
-            'photo' => 'Photo',
+            'photo' => 'Фото',
         ];
     }
 }

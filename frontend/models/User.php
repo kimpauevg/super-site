@@ -42,16 +42,19 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['name'],'required','message'=>'Заполните имя'],
+            ['phone','required','message'=>'Укажите свой мобильный телефон'],
+            ['hometown','required','message'=>'Укажите свой город'],
             [['status', 'created_at', 'updated_at'], 'default', 'value' => null],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email', 'verification_token', 'o_sebe', 'name', 'hometown', 'avatar'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
-            [['phone'], 'string', 'max' => 10],
+            [['phone'], 'string','min'=>10 ,'max' => 10,'message'=>'Не валидный телефон'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['username'], 'unique'],
             [['upload'], 'image', 'extensions' => ['png','jpg','jpeg'],'message'=>"Неверный формат файла. Выберите фотографию формата jpg, jpeg, png."],
-            [['upload'],'image','maxSize'=>10*1024*1024,'message'=>'Максимальный размер фотографии 10 Мб.'],
+            [['upload'],'image','maxSize'=>3*1024*1024,'message'=>'Слишком тяжелый файл. Выберите аватарку до 3 Мб.'],
             [['upload'],'image','maxFiles'=>1,'message'=>'Вы можете загрузить не более 1 фотографии'],
 
         ];
@@ -70,13 +73,13 @@ class User extends \yii\db\ActiveRecord
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Status',
-            'created_at' => 'Created At',
+            'created_at' => 'Зарегистрирован',
             'updated_at' => 'Updated At',
             'verification_token' => 'Verification Token',
-            'o_sebe' => 'O Sebe',
-            'phone' => 'Phone',
+            'o_sebe' => 'О себе',
+            'phone' => 'Телефон',
             'name' => 'Name',
-            'hometown' => 'Hometown',
+            'hometown' => 'Город',
             'avatar' => 'Avatar',
         ];
     }
