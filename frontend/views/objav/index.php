@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\ObjavSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Objavs';
+$this->title = 'Актуальные объявления';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php $cities = \app\models\Town::find()->all();
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(!Yii::$app->user->isGuest){echo Html::a('Create Objav', ['create'], ['class' => 'btn btn-success']);} ?>
+        <?php if(!Yii::$app->user->isGuest){echo Html::a('Создать объявление', ['create'], ['class' => 'btn btn-success']);} ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -36,7 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'description',
             [   'label' => 'Цена',
-                'value' => 'price',
+                'attribute'=>'price',
+                'value' => function($model){
+                    return $model->price." руб.";
+                },
             ],
             [   'label' => 'Категория',
                 'attribute' => 'category',

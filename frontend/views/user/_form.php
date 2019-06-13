@@ -10,12 +10,15 @@ use app\models\Town;
 
 <div class="user-form">
     <?php   $cities= Town::find()->all();
-    $items = \yii\helpers\ArrayHelper::getColumn($cities,'name');
-
+    $items = \yii\helpers\ArrayHelper::map($cities,'name','name');
+    $city = $model->hometown;
+    $params = [];
+    if($city==null){
     $params = [
         'prompt' => 'Выберите город...'
-    ];
-    $city = $model->hometown;
+
+    ];}
+
 
     ?>
     <p><h1> <?php echo "<img src =". $model->avatar." width:240px;height:320px;>" ?></h1></p>
@@ -36,7 +39,7 @@ use app\models\Town;
 
     <?= $form->field($model, 'upload')->fileInput() ?>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
 

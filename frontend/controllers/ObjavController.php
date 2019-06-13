@@ -66,13 +66,16 @@ class ObjavController extends Controller
     public function actionCreate()
     {
         $model = new Objav();
-        //if($model->photo!=null){$this->uploadPhoto($model);}
         $model->created_at = date('d.m.Y H:i:s', time());//i added that
         $model->owner_id = Yii::$app->user->id;
+        $this->uploadPhoto($model);
+
 
         //if(!$model->save()){
           //  print_r($model->errors);die;}
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())&& $model->save() ) {
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

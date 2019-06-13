@@ -28,13 +28,14 @@ use app\models\User;
     ?>
     <?php
     $cities= Town::find()->all();
-    $cities = \yii\helpers\ArrayHelper::getColumn($cities,'name');
+    //$cities = \yii\helpers\ArrayHelper::getColumn($cities,'name');
+    $cities = \yii\helpers\ArrayHelper::map($cities,'name','name');
 
-    $params_city = [
-
-    ];
     $person = User::findOne(Yii::$app->user->id);
     $city = $person->hometown;
+    $params_city = [
+        'value' =>$person->hometown,
+    ];
 
     ?>
 
@@ -47,7 +48,7 @@ use app\models\User;
 
     <?= $form->field($model, 'category')->dropDownList($items,$params_cat,$item)?>
 
-    <?= $form->field($model, 'town')->dropDownList($cities,$params_city,$city)?>
+    <?= $form->field($model, 'town')->dropDownList($cities,$params_city)?>
 
     <!--?= $form->field($model, 'created_at')->textInput(['maxlength' => true]) ?-->
 

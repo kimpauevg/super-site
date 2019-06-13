@@ -9,15 +9,10 @@ if(Yii::$app->user->id != $model->id||Yii::$app->user->isGuest){
     Yii::$app->response->redirect("index.php");
 
 }
-else echo Yii::$app->user->id . "=".$model->id;
-$this->title = 'Update User: ' . $model->name;
+$this->title = 'Личный кабинет';
 //$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
-if(Yii::$app->user->id != $model->id){
-    Yii::$app->session->setFlash('failure','Ай-яй-яй');
-}
-else $this->title= Yii::$app->user->id . "=".$model->id;
 ?>
 <div class="user-update">
 

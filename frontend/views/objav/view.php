@@ -27,23 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?php  $a=Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php $b=Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?php if (isOwner($model)==true){
-            echo $a;
-            echo $b;
-        }?>
 
-    </p>
     <p><h1> <?php echo "<img src =". $model->photo.">" ?></h1></p>
-    <?php $model->price = $model->price . ' руб'?>
+
 
 
     <?= DetailView::widget([

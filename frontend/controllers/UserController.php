@@ -67,7 +67,7 @@ class UserController extends Controller
     {
         $model = new User();
         $this->uploadAvatar($model);
-        $model->status = 10;
+        $model->status = 9;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

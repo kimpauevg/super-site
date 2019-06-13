@@ -46,6 +46,11 @@ class ObjavSearch extends Objav
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'forcePageParam' => false,
+                'pageSizeParam' => false,
+                'pageSize' => 20
+            ]
         ]);
 
         $this->load($params);
