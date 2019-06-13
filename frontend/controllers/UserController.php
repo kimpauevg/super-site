@@ -15,6 +15,13 @@ use yii\web\UploadedFile;
  */
 class UserController extends Controller
 {
+    protected function checkUpdateAccess($id){
+        return ($id == Yii::$app->user->id);
+    }
+    protected function checkManagementAccess(){
+        $person = User::findOne(Yii::$app->user->id);
+        return  $person->role == "admin";
+    }
     /**
      * {@inheritdoc}
      */
@@ -34,8 +41,12 @@ class UserController extends Controller
      * Lists all User models.
      * @return mixed
      */
+
     public function actionIndex()
     {
+        if(!$this->checkManagementAccess()) {
+            return $this->goHome();
+        }
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -63,6 +74,7 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    /*
     public function actionCreate()
     {
         $model = new User();
@@ -76,7 +88,7 @@ class UserController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
+    }*/
 
     /**
      * Updates an existing User model.
@@ -87,6 +99,7 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!$this->checkUpdateAccess($id)) return $this->goHome();
         $model = $this->findModel($id);
         $this->uploadAvatar($model);
 
@@ -108,6 +121,8 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!$this->checkManagementAccess()) return $this->goHome();
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

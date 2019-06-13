@@ -14,6 +14,10 @@ use yii\filters\VerbFilter;
  */
 class MyobjavController extends Controller
 {
+    protected function checkUpdateAccess($model){
+        return ($model->owner_id == Yii::$app->user->id);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -28,6 +32,7 @@ class MyobjavController extends Controller
             ],
         ];
     }
+
 
     /**
      * Lists all Myobjav models.
@@ -62,7 +67,7 @@ class MyobjavController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
         $model = new Myobjav();
 
@@ -73,7 +78,7 @@ class MyobjavController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
+    }*/
 
     /**
      * Updates an existing Myobjav model.
@@ -84,7 +89,10 @@ class MyobjavController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model =$this->findModel($id);
+        if(!$this->checkUpdateAccess($model)){
+            return $this->goHome();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,11 +112,16 @@ class MyobjavController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        $model->status = null;
+
+        $model =$this->findModel($id);
+        if(!$this->checkUpdateAccess($model)){
+            return $this->goHome();
+        }
+        $model->status = false;
+
 
         $model->save();
-        return $this->actionIndex();
+        return Yii::$app->response->redirect('?r=myobjav');
 
     }
 
@@ -127,4 +140,6 @@ class MyobjavController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

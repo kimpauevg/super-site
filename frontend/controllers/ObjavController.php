@@ -15,6 +15,9 @@ use yii\web\UploadedFile;
  */
 class ObjavController extends Controller
 {
+    protected function checkCreateAccess(){
+        return (!Yii::$app->user->isGuest);
+    }
     /**
      * {@inheritdoc}
      */
@@ -65,6 +68,7 @@ class ObjavController extends Controller
      */
     public function actionCreate()
     {
+        if(!$this->checkCreateAccess()) return $this->goHome();
         $model = new Objav();
         $model->created_at = date('d.m.Y H:i:s', time());//i added that
         $model->owner_id = Yii::$app->user->id;
@@ -91,7 +95,7 @@ class ObjavController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    /*public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         $this->uploadPhoto($model);
@@ -103,7 +107,7 @@ class ObjavController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
+    }*/
 
     /**
      * Deletes an existing Objav model.
@@ -112,7 +116,7 @@ class ObjavController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    /*public function actionDelete($id)
     {
         $model = $this->findModel($id);
         $model->status = false;
@@ -123,7 +127,7 @@ class ObjavController extends Controller
 
         return $this->redirect('index');
 
-    }
+    }*/
 
     /**
      * Finds the Objav model based on its primary key value.
