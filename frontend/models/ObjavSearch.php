@@ -46,6 +46,9 @@ class ObjavSearch extends Objav
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>['defaultOrder'=>[
+                'created_at'=>SORT_DESC,
+            ]],
             'pagination' => [
                 'forcePageParam' => false,
                 'pageSizeParam' => false,
