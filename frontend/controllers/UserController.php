@@ -45,7 +45,7 @@ class UserController extends Controller
      * @return mixed
      */
 
-    public function actionIndex()
+    /*public function actionIndex()
     {
         if(!$this->checkManagementAccess()) {
             return $this->goHome();
@@ -57,7 +57,7 @@ class UserController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }
+    }*/
 
     /**
      * Displays a single User model.
@@ -122,14 +122,14 @@ class UserController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    /*public function actionDelete($id)
     {
         if(!$this->checkManagementAccess()) return $this->goHome();
 
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
+    }*/
 
     /**
      * Finds the User model based on its primary key value.
