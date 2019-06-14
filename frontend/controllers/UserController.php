@@ -16,9 +16,11 @@ use yii\web\UploadedFile;
 class UserController extends Controller
 {
     protected function checkUpdateAccess($id){
+        if (Yii::$app->user->isGuest) return false;
         return ($id == Yii::$app->user->id);
     }
     protected function checkManagementAccess(){
+        if(Yii::$app->user->isGuest) return false;
         $person = User::findOne(Yii::$app->user->id);
         return  $person->role == "admin";
     }
@@ -32,6 +34,7 @@ class UserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+
                 ],
             ],
         ];

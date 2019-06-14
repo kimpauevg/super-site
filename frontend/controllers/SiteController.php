@@ -267,10 +267,7 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
-    /*
-     * Inserted by paul
-     * uploads image
-     */
+
 
 
 }

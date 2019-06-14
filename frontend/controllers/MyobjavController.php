@@ -14,8 +14,15 @@ use yii\filters\VerbFilter;
  */
 class MyobjavController extends Controller
 {
-    protected function checkUpdateAccess($model){
-        return ($model->owner_id == Yii::$app->user->id);
+    protected function checkAccess(){
+        return !Yii::$app->user->isGuest;
+    }
+    protected function checkUpdateAccess($model)
+    {
+        if ($this->checkAccess()) {
+            return ($model->owner_id == Yii::$app->user->id);
+        }
+        return false;
     }
 
     /**
@@ -40,6 +47,7 @@ class MyobjavController extends Controller
      */
     public function actionIndex()
     {
+        if(!$this->checkAccess()) return $this->goHome();
         $searchModel = new MyobjavSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -57,6 +65,7 @@ class MyobjavController extends Controller
      */
     public function actionView($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
