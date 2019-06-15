@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ObjavSearch */
+/* @var $model backend\models\ObjavSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <!-- $form->field($model, 'id') -->
+    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'headline') ?>
 
@@ -25,14 +25,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'category') ?>
 
-    <?= $form->field($model, 'town') ?>
+    <?php // echo $form->field($model, 'town') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'owner_id') ?>
+
     <?php // echo $form->field($model, 'photo') ?>
 
-
+    <?php // echo $form->field($model, 'status')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

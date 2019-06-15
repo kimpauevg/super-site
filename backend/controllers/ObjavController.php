@@ -1,23 +1,19 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
 use common\models\Objav;
-use common\models\ObjavSearch;
+use backend\models\ObjavSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
  * ObjavController implements the CRUD actions for Objav model.
  */
 class ObjavController extends Controller
 {
-    protected function checkCreateAccess(){
-        return (!Yii::$app->user->isGuest);
-    }
     /**
      * {@inheritdoc}
      */
@@ -68,18 +64,9 @@ class ObjavController extends Controller
      */
     public function actionCreate()
     {
-        if(!$this->checkCreateAccess()) return $this->goHome();
         $model = new Objav();
-        $model->created_at = date('d.m.Y H:i:s', time());//i added that
-        $model->owner_id = Yii::$app->user->id;
-        $this->uploadPhoto($model);
 
-
-        //if(!$model->save()){
-          //  print_r($model->errors);die;}
-        if ($model->load(Yii::$app->request->post())&& $model->save() ) {
-
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -95,10 +82,9 @@ class ObjavController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    /*public function actionUpdate($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $this->uploadPhoto($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -107,7 +93,7 @@ class ObjavController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }*/
+    }
 
     /**
      * Deletes an existing Objav model.
@@ -116,18 +102,12 @@ class ObjavController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    /*public function actionDelete($id)
+    public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        $model->status = false;
+        $this->findModel($id)->delete();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
-        }
-
-        return $this->redirect('index');
-
-    }*/
+        return $this->redirect(['index']);
+    }
 
     /**
      * Finds the Objav model based on its primary key value.
@@ -144,29 +124,4 @@ class ObjavController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    protected function uploadPhoto(Objav $model)
-    {
-        if ($model->load(Yii::$app->request->post())) {
-            $model->upload = UploadedFile::getInstance($model, 'upload');
-
-            if ($model->validate()) {
-                if ($model->upload) {
-                    $filePath = 'uploads/objav/' . $model->id . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($filePath)) {
-                        $model->photo = $filePath;
-                    }
-                }
-
-                if ($model->save(false)) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-        }
-    }
-    protected function deletePhoto(Objav $model)
-    {
-        $model->upload = null;
-        return true;
-    }
-
 }

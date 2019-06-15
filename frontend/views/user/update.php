@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model common\models\User */
 if(Yii::$app->user->id != $model->id||Yii::$app->user->isGuest){
     echo Yii::$app->session->setFlash('error', 'Нельзя редактировать чужие аккаунты.');
     Yii::$app->response->redirect("index.php");

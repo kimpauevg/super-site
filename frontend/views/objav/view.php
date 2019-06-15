@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use app\models\User;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Objav */
+/* @var $model common\models\Objav */
 
 $this->title = $model->headline;
 

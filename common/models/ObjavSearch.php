@@ -1,15 +1,15 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Myobjav;
+use common\models\Objav;
 
 /**
- * MyobjavSearch represents the model behind the search form of `app\models\Myobjav`.
+ * ObjavSearch represents the model behind the search form of `app\models\Objav`.
  */
-class MyobjavSearch extends Myobjav
+class ObjavSearch extends Objav
 {
     /**
      * {@inheritdoc}
@@ -19,7 +19,6 @@ class MyobjavSearch extends Myobjav
         return [
             [['id', 'price', 'owner_id'], 'integer'],
             [['headline', 'description', 'category', 'town', 'created_at', 'photo'], 'safe'],
-            [['status'], 'boolean'],
         ];
     }
 
@@ -41,7 +40,7 @@ class MyobjavSearch extends Myobjav
      */
     public function search($params)
     {
-        $query = Myobjav::find();
+        $query = Objav::find();
 
         // add conditions that should always apply here
 
@@ -69,8 +68,8 @@ class MyobjavSearch extends Myobjav
         $query->andFilterWhere([
             'id' => $this->id,
             'price' => $this->price,
-            'owner_id' => \Yii::$app->user->id,
-            'status' => $this->status,
+            'owner_id' => $this->owner_id,
+            'status'=>true,
         ]);
 
         $query->andFilterWhere(['ilike', 'headline', $this->headline])
@@ -81,5 +80,8 @@ class MyobjavSearch extends Myobjav
             ->andFilterWhere(['ilike', 'photo', $this->photo]);
 
         return $dataProvider;
+    }
+    public function getStatus(){
+
     }
 }

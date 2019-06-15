@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -16,8 +16,9 @@ use Yii;
  * @property string $created_at
  * @property int $owner_id
  * @property string $photo
+ * @property bool $status
  */
-class Objav extends \yii\db\ActiveRecord
+class Myobjav extends \yii\db\ActiveRecord
 {
     public $upload;
     /**
@@ -42,7 +43,6 @@ class Objav extends \yii\db\ActiveRecord
             [['price', 'owner_id'], 'default', 'value' => null],
             [['price', 'owner_id'], 'integer','message'=>'Цена должна быть целым числом'],
             [['headline', 'description', 'category', 'town', 'created_at', 'photo'], 'string', 'max' => 255],
-            ['upload','required','message'=>'Загрузите изображение'],
             [['upload'], 'image', 'extensions' => ['png','jpg','jpeg'],'message'=>"Неверный формат файла. Выберите фотографию формата jpg, jpeg, png."],
             [['upload'],'image','maxSize'=>10*1024*1024,'message'=>'Максимальный размер фотографии 10 Мб.'],
             [['upload'],'image','maxFiles'=>1,'message'=>'Вы можете загрузить не более 1 фотографии'],

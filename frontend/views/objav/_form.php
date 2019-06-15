@@ -1,12 +1,13 @@
 <?php
 
-use app\models\Town;
+use common\models\Town;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\User;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Objav */
+/* @var $model common\models\Objav */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -28,8 +29,8 @@ use app\models\User;
     ?>
     <?php
     $cities= Town::find()->all();
-    //$cities = \yii\helpers\ArrayHelper::getColumn($cities,'name');
-    $cities = \yii\helpers\ArrayHelper::map($cities,'name','name');
+    //$cities = ArrayHelper::getColumn($cities,'name');
+    $cities = ArrayHelper::map($cities,'name','name');
 
     $person = User::findOne(Yii::$app->user->id);
     $city = $person->hometown;

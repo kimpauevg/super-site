@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\Myobjav;
-use app\models\MyobjavSearch;
+use common\models\Myobjav;
+use common\models\MyobjavSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

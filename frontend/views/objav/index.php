@@ -3,15 +3,16 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use common\models\Town;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ObjavSearch */
+/* @var $searchModel common\models\ObjavSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Актуальные объявления';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php $cities = \app\models\Town::find()->all();
+<?php $cities = Town::find()->all();
         $items = \yii\helpers\ArrayHelper::getColumn($cities,'name')?>
 <div class="objav-index">
 

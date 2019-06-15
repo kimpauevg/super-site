@@ -1,10 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
+use common\models\Town;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MyobjavSearch */
+/* @var $searchModel common\models\MyobjavSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Мои объявления';
@@ -19,8 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?php $cities = \app\models\Town::find()->all();
-    $items = \yii\helpers\ArrayHelper::getColumn($cities,'name')
+    <?php $cities = Town::find()->all();
+    $items = ArrayHelper::getColumn($cities,'name')
     ?>
 
     <?= GridView::widget([

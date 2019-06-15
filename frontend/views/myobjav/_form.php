@@ -1,12 +1,12 @@
 <?php
 
-use app\models\Town;
+use common\models\Town;
 use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Myobjav */
+/* @var $model common\models\Myobjav */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
