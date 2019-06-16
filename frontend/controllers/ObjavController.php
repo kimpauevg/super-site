@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\User;
 use Yii;
 use common\models\Objav;
 use common\models\ObjavSearch;
@@ -66,7 +67,7 @@ class ObjavController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
         if(!$this->checkCreateAccess()) return $this->goHome();
         $model = new Objav();
@@ -75,10 +76,37 @@ class ObjavController extends Controller
         $this->uploadPhoto($model);
 
 
+
         //if(!$model->save()){
           //  print_r($model->errors);die;}
-        if ($model->load(Yii::$app->request->post())&& $model->save() ) {
+        if ($model->load(Yii::$app->request->post())&&$model->save()) {
 
+            $person = User::findOne(Yii::$app->user->id);
+            $person->objamount=$person->objamount + 1;
+            $person->save();
+            $this->uploadPhoto($model);
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+
+    }*/
+    public function actionCreate()
+    {
+        if(!$this->checkCreateAccess()) return $this->goHome();
+
+        $model = new Objav();
+        $model->created_at = date('d.m.Y H:i:s', time());//i added that
+        $model->owner_id = Yii::$app->user->id;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $person = User::findOne($model->owner_id);
+            $this->uploadPhoto($model,$person);
+            $person->objamount++;
+            $person->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -87,6 +115,7 @@ class ObjavController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Objav model.
@@ -144,14 +173,14 @@ class ObjavController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    protected function uploadPhoto(Objav $model)
+    protected function uploadPhoto(Objav $model, User $person)
     {
         if ($model->load(Yii::$app->request->post())) {
             $model->upload = UploadedFile::getInstance($model, 'upload');
 
             if ($model->validate()) {
                 if ($model->upload) {
-                    $filePath = 'uploads/objav/' . $model->id . '.' . $model->upload->extension;
+                    $filePath = 'uploads/objav/' . $model->owner_id . '_'.$person->objamount.'.' . $model->upload->extension;
                     if ($model->upload->saveAs($filePath)) {
                         $model->photo = $filePath;
                     }

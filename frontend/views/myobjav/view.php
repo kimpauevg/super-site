@@ -29,6 +29,7 @@ if(Yii::$app->user->id != $model->owner_id){
             ],
         ]) ?>
     </p>
+    <p><h1> <?php echo "<img src =". $model->photo." width:240px;height:320px;>" ?></h1></p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -61,7 +62,7 @@ if(Yii::$app->user->id != $model->owner_id){
     $person->created_at = $created_at;
     ?>
     <p> Создал объявление:</p>
-    <p> <?php echo "<img src =".$person->avatar.">" ?></p>
+    <p> <?php echo "<img src =".$person->avatar." width:240px;height:320px;>" ?></p>
     <?= DetailView::widget([
         'model' => $person,
         'attributes' => [

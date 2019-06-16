@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php if($model->id == Yii::$app->user->id) echo Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']); ?>
         <!--?php= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -52,6 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [   'label' => 'Телефон',
                 'attribute' => 'phone'
             ],
+            [   'label'=>'Количество объявлений',
+                'attribute'=>'objamount'
+            ]
 
         ],
     ]) ?>

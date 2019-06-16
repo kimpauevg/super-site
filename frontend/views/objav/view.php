@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 
-    <p><h1> <?php echo "<img src =". $model->photo.">" ?></h1></p>
+    <p><h1> <?php echo "<img src =". $model->photo." width:240px;height:320px;>" ?></h1></p>
 
 
 

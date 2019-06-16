@@ -1,32 +1,19 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use common\models\Objav;
 use Yii;
-use common\models\Myobjav;
-use common\models\MyobjavSearch;
+use backend\models\User;
+use backend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * MyobjavController implements the CRUD actions for Myobjav model.
+ * UserController implements the CRUD actions for User model.
  */
-class MyobjavController extends Controller
+class UserController extends Controller
 {
-    protected function checkAccess(){
-        return !Yii::$app->user->isGuest;
-    }
-    protected function checkUpdateAccess($model)
-    {
-        if ($this->checkAccess()) {
-            return ($model->owner_id == Yii::$app->user->id);
-        }
-        return false;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -42,15 +29,13 @@ class MyobjavController extends Controller
         ];
     }
 
-
     /**
-     * Lists all Myobjav models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if(!$this->checkAccess()) return $this->goHome();
-        $searchModel = new MyobjavSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -60,27 +45,26 @@ class MyobjavController extends Controller
     }
 
     /**
-     * Displays a single Myobjav model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Myobjav model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    /*public function actionCreate()
+    public function actionCreate()
     {
-        $model = new Myobjav();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -89,10 +73,10 @@ class MyobjavController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-    }*/
+    }
 
     /**
-     * Updates an existing Myobjav model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -100,13 +84,9 @@ class MyobjavController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model =$this->findModel($id);
-        if(!$this->checkUpdateAccess($model)){
-            return $this->goHome();
-        }
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->uploadPhoto($model);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -116,7 +96,7 @@ class MyobjavController extends Controller
     }
 
     /**
-     * Deletes an existing Myobjav model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,53 +104,24 @@ class MyobjavController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->findModel($id)->delete();
 
-        $model =$this->findModel($id);
-        if(!$this->checkUpdateAccess($model)){
-            return $this->goHome();
-        }
-        $model->status = false;
-
-
-        $model->save();
-        return Yii::$app->response->redirect('?r=myobjav');
-
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Myobjav model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Myobjav the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Myobjav::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    protected function uploadPhoto(Myobjav $model)
-    {
-        if ($model->load(Yii::$app->request->post())) {
-            $model->upload = UploadedFile::getInstance($model, 'upload');
-
-            if ($model->validate()) {
-                if ($model->upload) {
-                    $filePath = 'uploads/objav/' . $model->id . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($filePath)) {
-                        $model->photo = $filePath;
-                    }
-                }
-
-                if ($model->save(false)) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-        }
-    }
-
-
 }
