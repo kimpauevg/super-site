@@ -3,7 +3,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
-
+use common\models\User;
 /**
  * Login form
  */
@@ -61,6 +61,17 @@ class LoginForm extends Model
         
         return false;
     }
+    public function loginadmin()
+    {
+        if ($this->validate()) {
+            $person = $this->getUser();
+            if($person->role == 'admin')
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+        }
+
+        return false;
+    }
+
 
     /**
      * Finds user by [[username]]
@@ -74,5 +85,12 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Емэйл',
+            'password'=>'Пароль'
+        ];
     }
 }

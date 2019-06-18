@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\User;
+use common\models\User;
 use backend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -33,8 +33,18 @@ class UserController extends Controller
      * Lists all User models.
      * @return mixed
      */
+    protected function checkAccess(){
+        if(!Yii::$app->user->isGuest){
+            if(User::findOne(Yii::$app->user->id)->role == 'admin') return true;
+        }
+        return false;
+    }
+
+
     public function actionIndex()
     {
+        if(!$this->checkAccess()) return $this->goHome();
+
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +62,8 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +76,8 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        if(!$this->checkAccess()) return $this->goHome();
+
         $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +98,8 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +120,8 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

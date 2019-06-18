@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Objav;
+use common\models\User;
 use backend\models\ObjavSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -26,6 +27,7 @@ class ObjavController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+
         ];
     }
 
@@ -33,8 +35,16 @@ class ObjavController extends Controller
      * Lists all Objav models.
      * @return mixed
      */
+    protected function checkAccess(){
+        if(!Yii::$app->user->isGuest){
+            if(User::findOne(Yii::$app->user->id)->role == 'admin') return true;
+        }
+        return false;
+    }
     public function actionIndex()
     {
+
+        if(!$this->checkAccess()) return $this->goHome();
         $searchModel = new ObjavSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +62,7 @@ class ObjavController extends Controller
      */
     public function actionView($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +75,7 @@ class ObjavController extends Controller
      */
     public function actionCreate()
     {
+        if(!$this->checkAccess()) return $this->goHome();
         $model = new Objav();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +96,7 @@ class ObjavController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +117,7 @@ class ObjavController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!$this->checkAccess()) return $this->goHome();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
