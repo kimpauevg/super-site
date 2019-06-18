@@ -86,6 +86,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [   'label' => 'Телефон',
                 'attribute' => 'phone'
             ],
+            [    'label' => 'Кол-во объявлений',
+                'attribute'=> 'objamount'
+            ]
 
         ]
 
