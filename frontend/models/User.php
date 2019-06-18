@@ -26,6 +26,7 @@ use Yii;
 class User extends \yii\db\ActiveRecord
 {
     public $upload;
+    private $placeofavatar = "/var/www/html/";
 
     /**
      * {@inheritdoc}
@@ -79,9 +80,12 @@ class User extends \yii\db\ActiveRecord
             'verification_token' => 'Verification Token',
             'o_sebe' => 'О себе',
             'phone' => 'Телефон',
-            'name' => 'Name',
+            'name' => 'Имя',
             'hometown' => 'Город',
             'avatar' => 'Avatar',
         ];
+    }
+    public function getplace(){
+        return $this->placeofavatar;
     }
 }

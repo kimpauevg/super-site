@@ -181,7 +181,7 @@ class ObjavController extends Controller
             if ($model->validate()) {
                 if ($model->upload) {
                     $filePath = 'uploads/objav/' . $model->owner_id . '_'.$person->objamount.'.' . $model->upload->extension;
-                    if ($model->upload->saveAs($filePath)) {
+                    if ($model->upload->saveAs($model->getplace().$filePath)) {
                         $model->photo = $filePath;
                     }
                 }

@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 /**
  * UserController implements the CRUD actions for User model.
  */
+
 class UserController extends Controller
 {
     protected function checkUpdateAccess($id){
@@ -154,7 +155,7 @@ class UserController extends Controller
             if ($model->validate()) {
                 if ($model->upload) {
                     $filePath = 'uploads/avatars/' . $model->id . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($filePath)) {
+                    if ($model->upload->saveAs($model->getplace() .$filePath)) {
                         $model->avatar = $filePath;
                     }
                 }

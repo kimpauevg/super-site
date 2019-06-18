@@ -20,6 +20,8 @@ use Yii;
 class Objav extends \yii\db\ActiveRecord
 {
     public $upload;
+    private $placeofphoto = "/var/www/html/";
+
     /**
      * {@inheritdoc}
      */
@@ -64,5 +66,8 @@ class Objav extends \yii\db\ActiveRecord
             'owner_id' => 'Owner ID',
             'photo' => 'Фото',
         ];
+    }
+    public function getplace(){
+        return $this->placeofphoto;
     }
 }
