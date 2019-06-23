@@ -71,7 +71,7 @@ $items = ArrayHelper::getColumn($cities,'name')
                     } else return null;}],
 
 
-            ['class' => 'yii\grid\MyActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
 
         ]]); ?>
 

@@ -67,7 +67,7 @@ class ObjavSearch extends Objav
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'price' => $this->price,
+            //'price' => $this->price,
             'owner_id' => $this->owner_id,
             'status'=>true,
         ]);
@@ -78,6 +78,7 @@ class ObjavSearch extends Objav
             ->andFilterWhere(['ilike', 'town', $this->town])
             ->andFilterWhere(['ilike', 'created_at', $this->created_at])
             ->andFilterWhere(['ilike', 'photo', $this->photo]);
+          //  ->andFilterWhere(['ilike','price',$this->price]);
 
         return $dataProvider;
     }

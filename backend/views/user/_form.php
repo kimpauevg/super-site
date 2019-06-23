@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\User */
+/* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?-->
 
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?!-->
 
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?-->
 
-    <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?-->
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'updated_at')->textInput() ?>
 
-    <?= $form->field($model, 'verification_token')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'verification_token')->textInput(['maxlength' => true]) ?-->
 
     <?= $form->field($model, 'o_sebe')->textInput(['maxlength' => true]) ?>
 

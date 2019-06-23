@@ -26,20 +26,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
+            //'id',
+            //'username',
+            //'auth_key',
+            //'password_hash',
+            //'password_reset_token',
+            'email:email',
             //'status',
             //'created_at',
             //'updated_at',
             //'verification_token',
             //'o_sebe',
             //'phone',
-            //'name',
-            //'hometown',
+            'name',
+            'hometown',
+            ['format'=> 'raw',
+                'label'=>'Аватар',
+                'value'=>function($data){
+                    if($data->avatar!=null){
+                                return Html::img(($data->avatar),[
+                                    'style' => 'width:300px;max-height:300px'
+                                ]);
+                            } else return null;}
+
+
+            ],
             //'avatar',
             //'role',
 

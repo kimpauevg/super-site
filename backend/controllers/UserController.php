@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Objav;
 use Yii;
 use common\models\User;
 use backend\models\UserSearch;
@@ -120,9 +121,17 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+
         if(!$this->checkAccess()) return $this->goHome();
 
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $objavs = Objav::find()->where(['owner_id'=>$id])->all();
+        foreach ($objavs as $objav)
+            $objav->delete();
+
+
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -141,5 +150,14 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public  function actionDeletewithobjavs($id)
+    {
+        if(!$this->checkAccess()) return $this->goHome();
+        $objs = Objav::find()->where('owner_id'==$id)->all();
+        foreach ($objs as &$obj){
+            $obj->delete();
+        }
+        return $this->actionDelete($id);
     }
 }

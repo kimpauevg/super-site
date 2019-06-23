@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'description',
             [   'label' => 'Цена',
-                'attribute'=>'price',
                 'value' => function($model){
                     return $model->price." руб.";
                 },

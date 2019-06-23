@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]) ?>
+
     <?php $person = User::findOne([$model->owner_id]);
     $person->phone = '+7'.$person->phone;
     $created_at = (string)(date('d.m.Y',$person ->created_at));
