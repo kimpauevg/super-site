@@ -6,6 +6,7 @@ use common\models\Objav;
 use Yii;
 use common\models\Myobjav;
 use common\models\MyobjavSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,10 +39,11 @@ class MyobjavController extends Controller
                 ],
             ],
             'access' => [
+                'class' => AccessControl::className(),
                 'rules'=>[
                     [
                         'allow'=>true,
-                        'roles'=>'@'
+                        'roles'=>['@']
                     ]
                 ]
             ]
