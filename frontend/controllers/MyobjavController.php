@@ -6,6 +6,7 @@ use common\models\Objav;
 use Yii;
 use common\models\Myobjav;
 use common\models\MyobjavSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,6 +40,16 @@ class MyobjavController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access'=>[
+                'class'=> AccessControl::className(),
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'roles'=>['@']
+
+                    ]
+                ]
+            ]
         ];
     }
 
@@ -49,7 +60,6 @@ class MyobjavController extends Controller
      */
     public function actionIndex()
     {
-        if(!$this->checkAccess()) return $this->goHome();
         $searchModel = new MyobjavSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

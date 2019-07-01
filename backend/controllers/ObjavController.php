@@ -6,6 +6,7 @@ use Yii;
 use common\models\Objav;
 use common\models\User;
 use backend\models\ObjavSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +28,15 @@ class ObjavController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access'=>[
+                'class'=>AccessControl::className(),
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'roles'=>['@']
+                    ]
+                ]
+            ]
 
         ];
     }
@@ -35,12 +45,12 @@ class ObjavController extends Controller
      * Lists all Objav models.
      * @return mixed
      */
-    protected function checkAccess(){
+   /* protected function checkAccess(){
         if(!Yii::$app->user->isGuest){
             if(User::findOne(Yii::$app->user->id)->role == 'admin') return true;
         }
         return false;
-    }
+    }*/
     public function actionIndex()
     {
 

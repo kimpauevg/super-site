@@ -3,28 +3,42 @@
 namespace frontend\controllers;
 
 use app\models\User;
+use Codeception\Template\Acceptance;
 use Yii;
 use common\models\Objav;
 use common\models\ObjavSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
 /**
  * ObjavController implements the CRUD actions for Objav model.
  */
 class ObjavController extends Controller
 {
-    protected function checkCreateAccess(){
+    /*protected function checkCreateAccess(){
         return (!Yii::$app->user->isGuest);
-    }
+    }*/
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create'],
+                'rules'=> [
+                    [
+                    'actions'=>['create'],
+                    'allow'=>true,
+                    'roles'=>['@']
+                    ],
+                ]
+
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -96,7 +110,7 @@ class ObjavController extends Controller
     }*/
     public function actionCreate()
     {
-        if(!$this->checkCreateAccess()) return $this->goHome();
+       // if(!$this->checkCreateAccess()) return $this->goHome();
 
         $model = new Objav();
         $model->created_at = date('d.m.Y H:i:s', time());//i added that
