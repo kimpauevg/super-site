@@ -55,7 +55,6 @@ class UserController extends Controller
 
     public function actionIndex()
     {
-        if(!$this->checkAccess()) return $this->goHome();
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -74,7 +73,6 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -88,7 +86,6 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        if(!$this->checkAccess()) return $this->goHome();
 
         $model = new User();
 
@@ -110,7 +107,6 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
 
         $model = $this->findModel($id);
 
@@ -133,7 +129,6 @@ class UserController extends Controller
     public function actionDelete($id)
     {
 
-        if(!$this->checkAccess()) return $this->goHome();
 
         $model = $this->findModel($id);
         $objavs = Objav::find()->where(['owner_id'=>$id])->all();
@@ -164,7 +159,6 @@ class UserController extends Controller
     }
     public  function actionDeletewithobjavs($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
         $objs = Objav::find()->where('owner_id'==$id)->all();
         foreach ($objs as &$obj){
             $obj->delete();

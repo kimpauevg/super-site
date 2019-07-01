@@ -6,7 +6,6 @@ use common\models\Objav;
 use Yii;
 use common\models\Myobjav;
 use common\models\MyobjavSearch;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -17,15 +16,13 @@ use yii\web\UploadedFile;
  */
 class MyobjavController extends Controller
 {
-    protected function checkAccess(){
+   /* protected function checkAccess(){
         return !Yii::$app->user->isGuest;
-    }
+    }*/
     protected function checkUpdateAccess($model)
     {
-        if ($this->checkAccess()) {
+
             return ($model->owner_id == Yii::$app->user->id);
-        }
-        return false;
     }
 
     /**
@@ -40,13 +37,11 @@ class MyobjavController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access'=>[
-                'class'=> AccessControl::className(),
+            'access' => [
                 'rules'=>[
                     [
                         'allow'=>true,
-                        'roles'=>['@']
-
+                        'roles'=>'@'
                     ]
                 ]
             ]
@@ -77,7 +72,6 @@ class MyobjavController extends Controller
      */
     public function actionView($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

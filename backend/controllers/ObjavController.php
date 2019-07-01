@@ -54,7 +54,6 @@ class ObjavController extends Controller
     public function actionIndex()
     {
 
-        if(!$this->checkAccess()) return $this->goHome();
         $searchModel = new ObjavSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -72,7 +71,6 @@ class ObjavController extends Controller
      */
     public function actionView($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -85,7 +83,6 @@ class ObjavController extends Controller
      */
     public function actionCreate()
     {
-        if(!$this->checkAccess()) return $this->goHome();
         $model = new Objav();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -106,7 +103,6 @@ class ObjavController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!$this->checkAccess()) return $this->goHome();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
