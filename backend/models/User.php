@@ -26,6 +26,10 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+    public $upload;
+    private $placeofavatar = "/var/www/html/";
+
+
     /**
      * {@inheritdoc}
      */
@@ -75,5 +79,8 @@ class User extends \yii\db\ActiveRecord
             'avatar' => 'Avatar',
             'role' => 'Role',
         ];
+    }
+    public function getplace(){
+        return $this->placeofavatar;
     }
 }

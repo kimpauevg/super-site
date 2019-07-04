@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Town;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -7,8 +8,21 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php   $cities= Town::find()->all();
+$items = \yii\helpers\ArrayHelper::map($cities,'name','name');
+$city = $model->hometown;
+$params = [];
+if($city==null){
+    $params = [
+        'prompt' => 'Выберите город...'
+
+    ];}
+
+
+?>
 
 <div class="user-form">
+
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -24,9 +38,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <!--= $form->field($model, 'created_at')->textInput() -->
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <!--= $form->field($model, 'updated_at')->textInput() -->
 
     <!--?= $form->field($model, 'verification_token')->textInput(['maxlength' => true]) ?-->
 
@@ -36,9 +50,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'hometown')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'hometown')->dropDownList($items,$params,$city) ?>
 
-    <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'avatar')->fileInput() ?>
 
     <?= $form->field($model, 'role')->textInput(['maxlength' => true]) ?>
 

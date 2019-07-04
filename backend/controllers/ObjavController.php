@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ObjavController implements the CRUD actions for Objav model.
@@ -83,9 +84,18 @@ class ObjavController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Objav();
+        // if(!$this->checkCreateAccess()) return $this->goHome();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = new Objav();
+        $model->created_at = date('d.m.Y H:i:s', time());//i added that
+        $model->owner_id = Yii::$app->user->id;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $person = User::findOne($model->owner_id);
+            $this->uploadPhoto($model,$person);
+            $person->objamount++;
+            $person->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -93,7 +103,6 @@ class ObjavController extends Controller
             'model' => $model,
         ]);
     }
-
     /**
      * Updates an existing Objav model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -103,9 +112,13 @@ class ObjavController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model =$this->findModel($id);
+        if(!$this->checkUpdateAccess($model)){
+            return $this->goHome();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->uploadPhoto($model);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -143,5 +156,24 @@ class ObjavController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    protected function uploadPhoto(Objav $model, User $person)
+    {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->upload = UploadedFile::getInstance($model, 'upload');
+
+            if ($model->validate()) {
+                if ($model->upload) {
+                    $filePath = 'uploads/objav/' . $model->owner_id . '_'.$person->objamount.'.' . $model->upload->extension;
+                    if ($model->upload->saveAs($model->getplace().$filePath)) {
+                        $model->photo = $filePath;
+                    }
+                }
+
+                if ($model->save(false)) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
     }
 }

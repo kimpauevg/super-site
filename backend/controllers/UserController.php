@@ -4,12 +4,13 @@ namespace backend\controllers;
 
 use common\models\Objav;
 use Yii;
-use common\models\User;
+use backend\models\User;
 use backend\models\UserSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -84,19 +85,23 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
 
         $model = new User();
+        $this->uploadAvatar($model);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setPassword($model->password);
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
+    }*/
 
     /**
      * Updates an existing User model.
@@ -109,6 +114,7 @@ class UserController extends Controller
     {
 
         $model = $this->findModel($id);
+        $this->uploadAvatar($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -157,12 +163,31 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    public  function actionDeletewithobjavs($id)
+    /*public  function actionDeletewithobjavs($id)
     {
         $objs = Objav::find()->where('owner_id'==$id)->all();
         foreach ($objs as &$obj){
             $obj->delete();
         }
         return $this->actionDelete($id);
+    }*/
+    protected function uploadAvatar(User $model)
+    {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->upload = UploadedFile::getInstance($model, 'upload');
+
+            if ($model->validate()) {
+                if ($model->upload) {
+                    $filePath = 'uploads/avatars/' . $model->id . '.' . $model->upload->extension;
+                    if ($model->upload->saveAs($model->getplace() .$filePath)) {
+                        $model->avatar = $filePath;
+                    }
+                }
+
+                if ($model->save(false)) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
     }
 }
