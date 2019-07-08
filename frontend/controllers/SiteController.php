@@ -1,6 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+<<<<<<< HEAD
+=======
+use app\models\User;
+>>>>>>> 1ef7290e42da6e94d9447ce1ea1281e0ee2c016a
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -14,6 +18,10 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+<<<<<<< HEAD
+=======
+use yii\web\UploadedFile;
+>>>>>>> 1ef7290e42da6e94d9447ce1ea1281e0ee2c016a
 
 /**
  * Site controller
@@ -90,6 +98,14 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+<<<<<<< HEAD
+=======
+            $id = Yii::$app->user->id;
+            if(User::findOne($id)->hometown == null){
+                $this->redirect("?r=/user/update&id=".$id);
+                return true;
+            }
+>>>>>>> 1ef7290e42da6e94d9447ce1ea1281e0ee2c016a
             return $this->goBack();
         } else {
             $model->password = '';
@@ -154,10 +170,19 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+<<<<<<< HEAD
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
 
+=======
+            Yii::$app->session->setFlash('success', 'Thank you for registration.');
+            return $this->goHome();
+
+        }
+
+
+>>>>>>> 1ef7290e42da6e94d9447ce1ea1281e0ee2c016a
         return $this->render('signup', [
             'model' => $model,
         ]);
@@ -257,4 +282,10 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 1ef7290e42da6e94d9447ce1ea1281e0ee2c016a
 }

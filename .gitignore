@@ -41,3 +41,10 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+<<<<<<< HEAD
+=======
+
+#ignore photos in folder
+*.jpg
+*.png
+>>>>>>> 1ef7290e42da6e94d9447ce1ea1281e0ee2c016a
