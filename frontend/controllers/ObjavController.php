@@ -217,10 +217,12 @@ class ObjavController extends Controller
 
             if ($model->validate()) {
                 if ($model->upload) {
-                    $filePath = 'uploads/objav/' . $model->owner_id . '_'.$person->objamount.'.' . $model->upload->extension;
-                    if ($model->upload->saveAs($model->getplace().$filePath)) {
+                    $filePath = '/uploads/objav/' . $model->owner_id . '_'.$person->objamount.'.' . $model->upload->extension;
+
+                    if ($model->upload->saveAs(Yii::$app->basePath."/web".$filePath)) {
                         $model->photo = $filePath;
                     }
+
                 }
 
                 if ($model->save(false)) {

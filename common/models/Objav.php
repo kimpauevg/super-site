@@ -20,7 +20,6 @@ use Yii;
 class Objav extends \yii\db\ActiveRecord
 {
     public $upload;
-    private $placeofphoto = "/var/www/html/";
 
     /**
      * {@inheritdoc}

@@ -43,5 +43,5 @@ phpunit.phar
 /backend/web/robots.txt
 
 #ignore photos in folder
-/frontend/web/uploads/avatars/*
-/frontend/web/uploads/objav/*
+*.jpg
+*.png

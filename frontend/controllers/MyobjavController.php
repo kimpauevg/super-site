@@ -166,7 +166,7 @@ class MyobjavController extends Controller
             if ($model->validate()) {
                 if ($model->upload) {
                     $filePath = 'uploads/objav/' . $model->id . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($model->getplace().$filePath)) {
+                    if ($model->upload->saveAs(Yii::$app->basePath.$filePath)) {
                         $model->photo = $filePath;
                     }
                 }

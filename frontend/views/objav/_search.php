@@ -12,7 +12,10 @@ use common\models\Town;
 
 <?php
 $cities = Town::find()->all();
-$cities = ArrayHelper::getColumn($cities, 'name') ?>
+
+$cities = ArrayHelper::getColumn($cities, 'name');
+
+?>
 
 
 <div class="objav-search">
@@ -34,9 +37,17 @@ $cities = ArrayHelper::getColumn($cities, 'name') ?>
 
     <!--?= $form->field($model, 'price')-> ?-->
 
-    <?= $form->field($model, 'category')->dropDownList(["Недвижимость","Транспорт","Личные вещи","Хобби и отдых","Услуги","Бытовая техника"], ['prompt'=>'Выберите категорию'])?>
+    <?= $form->field($model, 'category')->dropDownList([
+            'Недвижимость'=>'Недвижимость',
+        'Транспорт'=>'Транспорт',
+        'Личные вещи'=>'Личные вещи',
+        'Хобби и отдых'=>'Хобби и отдых',
+        'Услуги'=>'Услуги',
+        'Бытовая техника'=>'Бытовая техника',
+        ],
+        ['prompt'=>'Выберите категорию'])?>
 
-    <?= $form->field($model, 'town')->dropDownList($cities,['prompt'=>"Выберите город..."]) ?>
+    <?= $form->field($model, 'town')->dropDownList($cities, ['value'=>$cities,'prompt'=>"Выберите город..."])->label('') ?>
     <?= $form->field($model, 'headline') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
