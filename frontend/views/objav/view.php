@@ -28,9 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 
-    <p><h1> <?php echo "<img src =". $model->photo." width=\"1000\">" ?></h1></p>
 
 
+    <?php
+
+    ?>
+    <div class="container-fluid" style="display: inline-block">
+        <div class="col-lg-8">
+            <p> <img src ="<?= $model->photo ?>" style="max-width: 100% "></p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -55,19 +60,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'town'
             ],
             [   'label' => 'Дата создания',
-                'attribute' => 'created_at'
+                'attribute' => 'created_at',
+                'value' => Yii::$app->formatter->asDatetime($model->created_at),
             ],
 
         ],
-    ]) ?>
+    ]) ?></div>
+
 
     <?php $person = User::findOne([$model->owner_id]);
     $person->phone = '+7'.$person->phone;
     $created_at = (string)(date('d.m.Y',$person ->created_at));
     $person->created_at = $created_at;
     ?>
-    <p> Создал объявление:</p>
-    <p> <?php echo "<img src =".$person->avatar.">" ?></p>
+    <div class="col-lg-3" style="width :20%; "><div class="card">
+     <img class="card-img-top" src="<?= $person->avatar; ?>" style="max-width: 200px; max-height: 200px; border: #0f0f0f;">
     <?= DetailView::widget([
         'model' => $person,
         'attributes' => [
@@ -94,6 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
 
 
-    ])?>
+    ])?></div>
+        </div>
 
 </div>

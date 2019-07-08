@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-   Yii::$app->response->redirect("index.php?r=objav");
+  // Yii::$app->response->redirect("index.php?r=objav");
 
 $this->title = 'My Yii Application';
 ?>
@@ -15,7 +15,7 @@ $this->title = 'My Yii Application';
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
-    <div class="body-content">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-lg-4">

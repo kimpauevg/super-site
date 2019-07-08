@@ -7,6 +7,9 @@ use Codeception\Template\Acceptance;
 use Yii;
 use common\models\Objav;
 use common\models\ObjavSearch;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,10 +31,10 @@ class ObjavController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create'],
+                'only' => ['create','myindex','update'],
                 'rules'=> [
                     [
-                    'actions'=>['create'],
+                    'actions'=>['create','myindex','update'],
                     'allow'=>true,
                     'roles'=>['@']
                     ],
@@ -44,6 +47,15 @@ class ObjavController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'created_at',
+                ],
+                'value' => function ($event) {
+                    return time();
+                },
             ],
         ];
     }
@@ -58,6 +70,16 @@ class ObjavController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionMyindex()
+    {
+        $searchModel = new ObjavSearch();
+        $dataProvider = $searchModel->mysearch(Yii::$app->request->queryParams);
+
+        return $this->render('myindex', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -113,11 +135,12 @@ class ObjavController extends Controller
        // if(!$this->checkCreateAccess()) return $this->goHome();
 
         $model = new Objav();
-        $model->created_at = date('d.m.Y H:i:s', time());//i added that
+        $model->created_at = time();//i added that
         $model->owner_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post())) {
             $person = User::findOne($model->owner_id);
+
             $this->uploadPhoto($model,$person);
             $person->objamount++;
             $person->save();
