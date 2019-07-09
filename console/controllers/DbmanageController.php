@@ -14,6 +14,10 @@ class DbmanageController extends Controller
         $wow = new Migration;
         $wow->delete('{{%objav}}');
     }
+    public function actionFixav(){
+        $wow = new Migration();
+        $wow->renameColumn('{{%user}}','avatars','avatar');
+    }
 
 
 }
