@@ -87,7 +87,7 @@ class ObjavSearch extends Objav
     }
     public function mysearch($params)
     {
-        $query = Myobjav::find();
+        $query = Objav::find();
 
         // add conditions that should always apply here
 
