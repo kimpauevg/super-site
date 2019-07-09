@@ -12,7 +12,7 @@ class m190610_104858_add_image_column_to_objav_and_user extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%user}}','avatars',$this->string());
+        $this->addColumn('{{%user}}','avatar',$this->string());
         $this->addColumn('{{%objav}}','photo',$this->string());
 
     }
