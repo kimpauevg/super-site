@@ -12,8 +12,11 @@ use common\models\Town;
 
 <?php
 $cities = Town::find()->all();
+    //->select(['name','id'])
+    //->indexBy('id')
+    //->column();
 
-$cities = ArrayHelper::getColumn($cities, 'name');
+$cities = ArrayHelper::map($cities, 'name','name');
 
 ?>
 
@@ -47,7 +50,7 @@ $cities = ArrayHelper::getColumn($cities, 'name');
         ],
         ['prompt'=>'Выберите категорию'])?>
 
-    <?= $form->field($model, 'town')->dropDownList($cities, ['value'=>$cities,'prompt'=>"Выберите город..."])->label('') ?>
+    <?= $form->field($model, 'town')->dropDownList($cities, ['prompt'=>"Выберите город..."]) ?>
     <?= $form->field($model, 'headline') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
@@ -59,7 +62,7 @@ $cities = ArrayHelper::getColumn($cities, 'name');
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <!--?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?-->
     </div>
 
     <?php ActiveForm::end(); ?>

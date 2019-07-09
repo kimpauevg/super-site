@@ -23,6 +23,11 @@ class ObjavController extends Controller
     /*protected function checkCreateAccess(){
         return (!Yii::$app->user->isGuest);
     }*/
+    protected function checkUpdateAccess($model)
+    {
+
+        return ($model->owner_id == Yii::$app->user->id);
+    }
     /**
      * {@inheritdoc}
      */
@@ -174,6 +179,23 @@ class ObjavController extends Controller
             'model' => $model,
         ]);
     }*/
+    public function actionUpdate($id)
+    {
+        $model =$this->findModel($id);
+        if(!$this->checkUpdateAccess($model)){
+            return $this->goHome();
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            $this->uploadPhoto($model,User::findOne($model->owner_id));
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
 
     /**
      * Deletes an existing Objav model.
@@ -194,7 +216,20 @@ class ObjavController extends Controller
         return $this->redirect('index');
 
     }*/
+    public function actionDelete($id)
+    {
 
+        $model =$this->findModel($id);
+        if(!$this->checkUpdateAccess($model)){
+            return $this->goHome();
+        }
+        $model->status = false;
+
+
+        $model->save();
+        return $this->redirect('objav/myindex');
+
+    }
     /**
      * Finds the Objav model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -217,7 +252,7 @@ class ObjavController extends Controller
 
             if ($model->validate()) {
                 if ($model->upload) {
-                    $filePath = '/uploads/objav/' . $model->owner_id . '_'.$person->objamount.'.' . $model->upload->extension;
+                    $filePath = '/uploads/objav/' . $model->owner_id . '_'.$model->created_at.'.' . $model->upload->extension;
 
                     if ($model->upload->saveAs(Yii::$app->basePath."/web".$filePath)) {
                         $model->photo = $filePath;

@@ -8,7 +8,7 @@ use common\models\Town;
 use yii\web\View;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\MyobjavSearch */
+/* @var $searchModel common\models\ObjavSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Мои объявления';
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php $cities = Town::find()->all();
-    $items = ArrayHelper::getColumn($cities,'name')
+    $items = ArrayHelper::map($cities,'name','name')
     ?>
 
     <?= GridView::widget([
@@ -83,6 +83,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
 
         ]]); ?>
+    <?php
+
+    function echoobjav($objav){
+        echo "<div class='row'>
+                <div class='col-lg-8'>
+                    ".$objav->headline."
+                </div>
+                <div class='col-lg-1'>
+                    "."
+                </div>
+            </div>";
+    }
+    function echoobj($objav){
+
+    }
+    function echoobjavs($objavs){
+        foreach ($objavs as $objav) echoobjav($objav);
+    }
+
+    ?>
+
+    <!--?php  echo $this->render('_search', ['model' => $searchModel]); ?-->
+    <!--?php  $objavs = $dataProvider->getModels();
+    echo "<div class='container-fluid'>".
+    echoobjavs($objavs)."</div>"?-->
 
 
 </div>

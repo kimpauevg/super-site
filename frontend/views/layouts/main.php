@@ -49,11 +49,11 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
         $id = Yii::$app->user->getId();
-        $menuItems[] = ['label'=>'Создать объявление','url'=> '/objav/create'];
+        $menuItems[] = ['label'=>'Создать объявление','url'=> \yii\helpers\Url::toRoute('/objav/create')];
 
 
-        $menuItems[] = ['label'=>'Мои объявления','url'=>\yii\helpers\Url::toRoute('/myobjav')];
-        $menuItems[] = ['label'=>'Личный кабинет','url' => \yii\helpers\Url::to(['/user/update','id'=>$id])];
+        $menuItems[] = ['label'=>'Мои объявления','url'=>\yii\helpers\Url::toRoute('/objav/myindex')];
+        $menuItems[] = ['label'=>'Личный кабинет','url' => \yii\helpers\Url::toRoute(['/user/update','id'=>$id])];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
