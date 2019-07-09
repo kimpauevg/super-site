@@ -21,7 +21,7 @@ use common\models\Town;
 
 
     ?>
-    <p><h1> <?php echo "<img src =". $model->avatar." width:240px;height:320px;>" ?></h1></p>
+    <p><h1> <?php if ($model->avatar!=null) echo "<img src =". $model->avatar." width:240px;height:320px;>" ?></h1></p>
 
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
