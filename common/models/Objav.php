@@ -67,7 +67,5 @@ class Objav extends \yii\db\ActiveRecord
             'photo' => 'Фото',
         ];
     }
-    public function getplace(){
-        return $this->placeofphoto;
-    }
+
 }

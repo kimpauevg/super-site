@@ -15,4 +15,5 @@ class DbmanageController extends Controller
         $wow->delete('{{%objav}}');
     }
 
+
 }

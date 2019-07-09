@@ -154,8 +154,8 @@ class UserController extends Controller
 
             if ($model->validate()) {
                 if ($model->upload) {
-                    $filePath = 'uploads/avatars/' . $model->id . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($model->getplace() .$filePath)) {
+                    $filePath = '/uploads/avatars/' . $model->id . '.' . $model->upload->extension;
+                    if ($model->upload->saveAs(Yii::$app->basePath."/web".$filePath)) {
                         $model->avatar = $filePath;
                     }
                 }
