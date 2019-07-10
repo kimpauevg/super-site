@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $model->phone = "+7". $model->phone;
     ?>
 
-    <p><h1> <?php echo "<img src =". $model->avatar." width:240px;height:320px;>" ?></h1></p>
+    <p><h1> <?php echo "<img src =\"$model->avatar\" style=\"max-width:100%; max-height: 100%;\">" ?></h1></p>
 
     <?= DetailView::widget([
 

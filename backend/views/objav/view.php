@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 
-    <p><h1> <?php echo "<img src =". $model->photo." width:240px;height:320px;>" ?></h1></p>
 
 
 
@@ -56,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
     $person->created_at = $created_at;
     ?>
     <p> Создал объявление:</p>
-    <p> <?php echo "<img src =".$person->avatar.">" ?></p>
     <?= DetailView::widget([
         'model' => $person,
         'attributes' => [

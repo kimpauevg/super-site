@@ -43,7 +43,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'headline')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textArea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 

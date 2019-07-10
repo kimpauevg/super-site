@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 function echocard($subj){
     echo "<div class='mr-5 col-lg-6' style='padding-right: 200px' ><p>
                 <div class=\"card\" > <a href=". Url::toRoute(['/objav/view','id'=>$subj->id]) ."> 
-                <img class='card-img-top' src=\" " . $subj->photo . " \" href=\"". Url::to(['/objav/view','id'=>$subj->id]) . "\">
+                <img class='card-img-top' src=\" " . $subj->photo . " \" href=\"". Url::to(['/objav/view','id'=>$subj->id]) . "\" alt='Без фотографии'>
                 <div class='card-body'>". $subj->headline ." </div></a>
                 <div class='card-body'>"."Цена: ". $subj->price . " руб"." </div>
                 <div class='card-body'>".Yii::$app->formatter->asDatetime($subj->created_at,'php:d M H:i') ."</div>

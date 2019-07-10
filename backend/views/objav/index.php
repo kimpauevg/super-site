@@ -61,15 +61,15 @@ $items = ArrayHelper::getColumn($cities,'name')
             //'created_at',
             //'owner_id',
             //'photo',
-            [
+           /* [
                 'format' => 'raw',
                 'value' => function($data){
                     if($data->photo!=null){
-                        return Html::img(($data->photo),[
+                        return Html::img(('@web'.$data->photo),[
                             'style' => 'width:300px;max-height:300px'
                         ]);
                     } else return null;}],
-
+            */
 
             ['class' => 'yii\grid\ActionColumn'],
 

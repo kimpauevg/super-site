@@ -85,13 +85,14 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    /*public function actionCreate()
+    public function actionCreate()
     {
 
         $model = new User();
-        $this->uploadAvatar($model);
+        //$this->uploadAvatar($model);
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->username = $model->email;
             $model->setPassword($model->password);
             $model->save();
 
@@ -101,7 +102,7 @@ class UserController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-    }*/
+    }
 
     /**
      * Updates an existing User model.
@@ -136,7 +137,9 @@ class UserController extends Controller
     {
 
 
+
         $model = $this->findModel($id);
+        if($model->role == "admin") return;
         $objavs = Objav::find()->where(['owner_id'=>$id])->all();
         foreach ($objavs as $objav)
             $objav->delete();
@@ -178,8 +181,8 @@ class UserController extends Controller
 
             if ($model->validate()) {
                 if ($model->upload) {
-                    $filePath = 'uploads/avatars/' . $model->id . '.' . $model->upload->extension;
-                    if ($model->upload->saveAs($model->getplace() .$filePath)) {
+                    $filePath = '/uploads/avatars/' . $model->id . '.' . $model->upload->extension;
+                    if ($model->upload->saveAs(Yii::$app->basePath . "/../frontend//web" . $filePath)) {
                         $model->avatar = $filePath;
                     }
                 }

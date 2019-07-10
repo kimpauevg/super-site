@@ -21,7 +21,7 @@ use common\models\Town;
 
 
     ?>
-    <p><h1> <?php if ($model->avatar!=null) echo "<img src =". $model->avatar." width:240px;height:320px;>" ?></h1></p>
+    <p><h1> <?php echo "<img src =\"$model->avatar\" style=\"max-width:100%; max-height: 100%;\">" ?></h1></p>
 
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
@@ -31,7 +31,7 @@ use common\models\Town;
     <!--= $form->field($model, 'email')->textInput(['maxlength' => true]) ?-->
 
 
-    <?= $form->field($model, 'o_sebe')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'o_sebe')->textArea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 

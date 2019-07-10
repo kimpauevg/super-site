@@ -52,7 +52,7 @@ if($city==null){
 
     <?= $form->field($model, 'hometown')->dropDownList($items,$params,$city) ?>
 
-    <?= $form->field($model, 'upload')->fileInput() ?>
+    <!--?= $form->field($model, 'upload')->fileInput() ?-->
 
     <?= $form->field($model, 'role')->textInput(['maxlength' => true]) ?>
 
