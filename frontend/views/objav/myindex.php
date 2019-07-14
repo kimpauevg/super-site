@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $items = ArrayHelper::map($cities,'name','name')
     ?>
 
-    <?= GridView::widget([
+    <!--?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -82,18 +82,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
 
-        ]]); ?>
+        ]]); ?-->
     <?php
 
     function echoobjav($objav){
-        echo "<div class='row'>
-                <div class='col-lg-8'>
-                    ".$objav->headline."
+        $st = $objav->status==0?'Закрыто':'Активно';
+        echo "<div class='row' style='margin-top: 5%'>
+                <div class='col-lg-5'>
+                    <h1>".$objav->headline."</h1>
+                    <p><b>".date("d.m.Y H.i.s",$objav->created_at)." " . "Город:</b>". $objav->town ."</p>
                 </div>
-                <div class='col-lg-1'>
-                    "."
+                <div class='col-lg-1'>".
+                    Html::beginForm(['/objav/update','id'=>$objav->id],'get') .
+                    Html::input('submit','Update','Update').
+                    Html::endForm().
+                "</div>
+                <div class='col-lg-1'>".
+                    Html::beginForm(['/objav/delete','id'=>$objav->id],'post') .
+                    Html::input('submit','Delete','Delete').
+                    Html::endForm().
+                "</div>
+                 <div class='col-lg-5'>".
+                    Html::tag('p',Html::encode('Статус: '.$st)).
+                    Html::tag('p',Html::encode('Цена:'.$objav->price)." руб."."
+                 </div>
+              </div>
+              <div class='row' style='margin-bottom: 5%'>
+                <div class='col-lg-7'>
+                    ". nl2br(Html::encode($objav->description)) ."
                 </div>
-            </div>";
+                <div class='col-lg-5'>
+                    <img src='$objav->photo' style='max-width: 100%;max-height: 100%'>
+                </div>
+            </div> ");
     }
     function echoobj($objav){
 
@@ -104,10 +125,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     ?>
 
-    <!--?php  echo $this->render('_search', ['model' => $searchModel]); ?-->
-    <!--?php  $objavs = $dataProvider->getModels();
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  $objavs = $dataProvider->getModels();
     echo "<div class='container-fluid'>".
-    echoobjavs($objavs)."</div>"?-->
+    echoobjavs($objavs)."</div>"?>
 
 
 </div>

@@ -114,13 +114,9 @@ function echocol($subjs){
     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?php $models = $dataProvider->getModels();
-    echo "<div class='container-fluid' style=' '>
-             ";
+    echo "<div class='container-fluid' style=' '>";
                 echocol($models);
-    echo "
-                
-             
-          </div>";
+    echo "</div>";
 
         ?>
     <?php echo \yii\widgets\LinkPager::widget([
